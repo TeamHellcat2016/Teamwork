@@ -3,7 +3,6 @@ import {controllers} from "controllers";
 (function () {
 
     var sammyApp = Sammy("#content", function () {
-
         this.get('#/', function (context) {
             context.redirect('#/home');
         });
@@ -12,6 +11,7 @@ import {controllers} from "controllers";
 
         this.get("#/browse", controllers.browse.all);
 
+        this.get("#/register", controllers.register.all);
     });
 
 

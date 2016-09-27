@@ -20,15 +20,14 @@ var requester = (function () {
     function registerUserRequest(username, password) {
         const data = { username, password };
         const headers = { Authorization: `Basic ${authorizationString}` };
-        jqueryRequester.post(userUrl, headers, data);
+        return jqueryRequester.post(userUrl, headers, data);
     }
 
     function loginUserRequest(username, password) {
         const data = { username, password };
         const headers = { Authorization: `Basic ${authorizationString}` };
-        jqueryRequester.post(loginUserUrl, headers, data)
+        return jqueryRequester.post(loginUserUrl, headers, data)
             .then((res) => {
-                console.log(res);
                 localStorage.setItem(CURRENT_USER_KEY, res._id);
                 localStorage.setItem(AUTH_TOKEN, res._kmd.authtoken);
             });
@@ -38,7 +37,7 @@ var requester = (function () {
         const data = { username, password };
         var authtoken = localStorage.getItem(AUTH_TOKEN);
         const headers = { Authorization: `Kinvey ${authtoken}` };
-        jqueryRequester.post(logoutUserUrl, headers, data)
+        return jqueryRequester.post(logoutUserUrl, headers, data)
             .then(() => {
                 localStorage.removeItem(CURRENT_USER_KEY);
                 localStorage.removeItem(AUTH_TOKEN);

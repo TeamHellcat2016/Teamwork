@@ -2,7 +2,6 @@ import {templates} from "templates";
 import {requester} from "requester";
 
 let browse = (function () {
-    console.log("here");
 
     function getBrowsing(context) {
         var data;
