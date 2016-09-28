@@ -13,6 +13,8 @@ import {attachEvents} from "events";
         this.get("#/browse", controllers.browse.all);
 
         this.get("#/register", controllers.register.all);
+
+        this.get("#/restaurant/:id", controllers.restaurantProfile.all);
     });
 
 

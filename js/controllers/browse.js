@@ -16,7 +16,10 @@ let browse = (function () {
             .then((templateFunc) => {
                 context.$element().html(templateFunc({ data }));
             });
-    }
+        }
+
+
+
     return {
         all: getBrowsing
     };
