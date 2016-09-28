@@ -15,6 +15,8 @@ import {attachEvents} from "events";
         this.get("#/register", controllers.register.all);
 
         this.get("#/restaurant/:id", controllers.restaurantProfile.all);
+
+        this.get("#/profile", controllers.userProfile.all);
     });
 
 

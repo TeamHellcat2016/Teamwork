@@ -13,7 +13,7 @@ var requester = (function () {
 
     const url = "https://baas.kinvey.com";
     const getUrl = url + appId;
-    const userUrl = url + `/user/${appId}/`;
+    const userUrl = url + `/user/${appId}`;
     const loginUserUrl = userUrl + "login";
     const logoutUserUrl = userUrl + "_logout";
     const getRestaurantsUrl = url + `/appdata/${appId}/restaurants`;
@@ -47,14 +47,47 @@ var requester = (function () {
             });
     }
 
-    function isLoggedIn(){
+    function isLoggedIn() {
         return new Promise((resolve, reject) => {
             const username = localStorage.getItem(CURRENT_USER_NAME);
-            if(username){
+            if (username) {
                 resolve(username);
             }
             reject();
         });
+    }
+
+    function getUserFavourites() {
+        const id = localStorage.getItem(CURRENT_USER_ID);
+        const url = userUrl + `/${id}`;
+        console.log(url);
+        const authtoken = localStorage.getItem(AUTH_TOKEN);
+        const headers = { Authorization: `Kinvey ${authtoken}` };
+        return jqueryRequester.get(url, headers)
+            .then((user) => {
+                return user.favourites;
+            });
+    }
+
+    function addRestaurantToFavourites(restaurantId) {
+        const userId = localStorage.getItem(CURRENT_USER_ID);
+        const authtoken = localStorage.getItem(AUTH_TOKEN);
+        const headers = { Authorization: `Kinvey ${authtoken}` };
+        const url = userUrl + `/${userId}`;
+        var newFavourites;
+        return getUserFavourites()
+            .then((favourites) => {
+                newFavourites = favourites;
+                if (newFavourites.indexOf(restaurantId) < 0) {
+                    newFavourites.push(restaurantId);
+                }else{
+                    throw new Error("The place is already added to favourites.");
+                }
+            })
+            .then(() => {
+                var data = { favourites: newFavourites };
+                return jqueryRequester.put(url, headers, data);
+            });
     }
 
     function getAllRestaurants() {
@@ -62,8 +95,8 @@ var requester = (function () {
         const headers = { Authorization: `Kinvey ${authtoken}` };
         return jqueryRequester.get(getRestaurantsUrl, headers);
     }
-    
-    function getRestaurantById(id){
+
+    function getRestaurantById(id) {
         const authtoken = localStorage.getItem(AUTH_TOKEN);
         const headers = { Authorization: `Kinvey ${authtoken}` };
         const url = getRestaurantsUrl + `/${id}`;
@@ -75,8 +108,10 @@ var requester = (function () {
         loginUser: loginUserRequest,
         logoutUser: logoutUserRequest,
         isLoggedIn: isLoggedIn,
+        getUserFavourites: getUserFavourites,
         getAllRestaurants: getAllRestaurants,
-        getRestaurantById: getRestaurantById
+        getRestaurantById: getRestaurantById,
+        addRestaurantToFavourites: addRestaurantToFavourites
     };
 } ());
 
