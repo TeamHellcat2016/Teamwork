@@ -20,7 +20,6 @@ let browse = (function () {
                         $("#restaurants-list").html(templateListFunc({ data }));
 
                         $(".add-to-favourites").on("click", function (ev) {
-                            //debugger;
                             const parent = $(ev.target).parents(".restaurant");
                             const id = parent.attr("data-id");
                             console.log(id);
@@ -41,6 +40,10 @@ let browse = (function () {
                         });
                     });
 
+                addAutocomplete("type", "type", data);
+                addAutocomplete("city", "city", data);
+                addAutocomplete("cuisine", "cuisine", data, true);
+                addAutocomplete("name", "place-name", data);
 
                 $("#search-restaurants").on("click", function (ev) {
                     const city = $("#city").val().toLowerCase();
@@ -93,30 +96,34 @@ let browse = (function () {
                     ev.preventDefault();
                     return false;
                 });
-
-                // $(".add-to-favourites").on("click", function (ev) {
-                //     const parent = $(ev.target).parent(".restaurant");
-                //     const id = parent.attr("data-id");
-                //     console.log(id);
-                //     requester.addRestaurantToFavourites(id)
-                //         .then(() => {
-                //             toastr.success("Added to favourites!");
-                //         })
-                //         .cacth(() => {
-                //             toastr.error("An error occured and the place is not added to favourites.");
-                //         });
-
-                //     ev.preventDefault();
-                //     return false;
-                // });
             })
-            .catch(() => {
+            .catch((e) => {
+                console.log(e);
                 templates.get("not-logged-in")
                     .then((templateFunc) => {
                         context.$element().html(templateFunc());
                     });
             });
 
+    }
+
+    function addAutocomplete(property, field, data, isInArray) {
+        isInArray = isInArray || false;
+        var options =[];
+        if (isInArray) {
+            data.map(r => r[property])
+                .forEach((array) => {
+                    options.push(...array);
+                });
+            options = options.filter(function (elem, index, self) {
+                return index == self.indexOf(elem);
+            });
+        } else {
+            options = data.map(r => r[property]).filter(function (elem, index, self) {
+                return index == self.indexOf(elem);
+            });
+        }
+        $(`#${field}`).autocomplete({ source: options });
     }
 
     return {

@@ -14,8 +14,8 @@ var requester = (function () {
     const url = "https://baas.kinvey.com";
     const getUrl = url + appId;
     const userUrl = url + `/user/${appId}`;
-    const loginUserUrl = userUrl + "login";
-    const logoutUserUrl = userUrl + "_logout";
+    const loginUserUrl = userUrl + "/login";
+    const logoutUserUrl = userUrl + "/_logout";
     const getRestaurantsUrl = url + `/appdata/${appId}/restaurants`;
 
     function registerUserRequest(username, password) {
@@ -39,12 +39,18 @@ var requester = (function () {
         const data = { username, password };
         const authtoken = localStorage.getItem(AUTH_TOKEN);
         const headers = { Authorization: `Kinvey ${authtoken}` };
-        return jqueryRequester.post(logoutUserUrl, headers, data)
+        return jqueryRequester.post(logoutUserUrl, headers)
             .then(() => {
                 localStorage.removeItem(CURRENT_USER_ID);
                 localStorage.removeItem(CURRENT_USER_NAME);
                 localStorage.removeItem(AUTH_TOKEN);
             });
+        // return Promise.resolve()
+        //     .then(() => {
+        //         localStorage.removeItem(CURRENT_USER_ID);
+        //         localStorage.removeItem(CURRENT_USER_NAME);
+        //         localStorage.removeItem(AUTH_TOKEN);
+        //     });
     }
 
     function isLoggedIn() {

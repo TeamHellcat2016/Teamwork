@@ -6,7 +6,6 @@ var userProfile = (function () {
     function getProfile(context) {
         var userInfo;
 
-
         //TODO: fix promise structure
         requester.getUserInfo()
             .then((user) => {
@@ -21,6 +20,10 @@ var userProfile = (function () {
                 var length = userInfo.favourites.length;
                 var itemsProcessed = 0;
                 return new Promise((resolve, reject) => {
+                    if(userInfo.favourites.length===0){
+                        resolve(allRestaurants);
+                        return;
+                    }
                     userInfo.favourites.forEach((id) => {
                         requester.getRestaurantById(id)
                             .then((restaurant) => {
@@ -37,7 +40,6 @@ var userProfile = (function () {
             .then((allRestaurants) => {
                 templates.get("restaurants-list")
                     .then((listTemplateFunc) => {
-                        console.log(allRestaurants);
                         $("#restaurants-list").html(listTemplateFunc({ data: allRestaurants }));
 
                         $(".add-to-favourites").addClass("hidden");
