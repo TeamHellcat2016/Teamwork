@@ -7,6 +7,13 @@ let attachEvents = function () {
     //     requester.registerUser(username, password);
     // });
 
+    requester.isLoggedIn()
+        .then((username) => {
+            $("#login-form").addClass("hidden");
+            $("#user-links").removeClass("hidden");
+            $("#user-profile-link").html(`Hello, ${username}`);
+        });
+
     $("#login").on("click", function (ev) {
         const username = $("#username").val();
         const password = $("#password").val();

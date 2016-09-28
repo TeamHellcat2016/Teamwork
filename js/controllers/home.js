@@ -12,9 +12,6 @@ class Home {
        templates.get("home")
             .then((template) => {
                 context.$element().html(template());
-            })
-            .then(() => {
-                attachEvents();
             });
     }
 
