@@ -57,16 +57,12 @@ var requester = (function () {
         });
     }
 
-    function getUserFavourites() {
+    function getUserInfo() {
         const id = localStorage.getItem(CURRENT_USER_ID);
         const url = userUrl + `/${id}`;
-        console.log(url);
         const authtoken = localStorage.getItem(AUTH_TOKEN);
         const headers = { Authorization: `Kinvey ${authtoken}` };
-        return jqueryRequester.get(url, headers)
-            .then((user) => {
-                return user.favourites;
-            });
+        return jqueryRequester.get(url, headers);
     }
 
     function addRestaurantToFavourites(restaurantId) {
@@ -75,12 +71,13 @@ var requester = (function () {
         const headers = { Authorization: `Kinvey ${authtoken}` };
         const url = userUrl + `/${userId}`;
         var newFavourites;
-        return getUserFavourites()
-            .then((favourites) => {
+        return getUserInfo()
+            .then((user) => {
+                var favourites = user.favourites;
                 newFavourites = favourites;
                 if (newFavourites.indexOf(restaurantId) < 0) {
                     newFavourites.push(restaurantId);
-                }else{
+                } else {
                     throw new Error("The place is already added to favourites.");
                 }
             })
@@ -108,7 +105,7 @@ var requester = (function () {
         loginUser: loginUserRequest,
         logoutUser: logoutUserRequest,
         isLoggedIn: isLoggedIn,
-        getUserFavourites: getUserFavourites,
+        getUserInfo: getUserInfo,
         getAllRestaurants: getAllRestaurants,
         getRestaurantById: getRestaurantById,
         addRestaurantToFavourites: addRestaurantToFavourites
