@@ -35,6 +35,8 @@ var restaurantProfile = (function () {
                     ev.preventDefault();
                     return false;
                 });
+
+                
             });
     }
 
