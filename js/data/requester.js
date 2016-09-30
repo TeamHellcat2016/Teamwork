@@ -19,7 +19,8 @@ let requester = (function () {
     const getRestaurantsUrl = url + `/appdata/${appId}/restaurants`;
 
     function registerUserRequest(username, password) {
-        const data = { username, password };
+        let favourites = [];
+        const data = { username, password, favourites };
         const headers = { Authorization: `Basic ${authorizationString}` };
         return jqueryRequester.post(userUrl, headers, data);
     }
