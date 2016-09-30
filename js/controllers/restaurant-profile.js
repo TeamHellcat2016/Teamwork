@@ -14,12 +14,12 @@ var restaurantProfile = (function () {
             })
             .then((templateFunc) => {
                 context.$element().html(templateFunc(data));
-
+                return templates.get("comments");
+            })
+            .then((commentsFunc) => {
+                $("#comment-section").html(commentsFunc({ comments: data.comments }));
 
                 $(".add-to-favourites").on("click", function (ev) {
-                    const parent = $(ev.target).parents(".restaurant-profile");
-                    const id = parent.attr("data-id");
-                    console.log(id);
                     requester.addRestaurantToFavourites(id)
                         .then(() => {
                             toastr.success("Added to favourites!");
@@ -36,7 +36,24 @@ var restaurantProfile = (function () {
                     return false;
                 });
 
-                
+                $(".add-comment-btn").on("click", function (ev) {
+                    var content = $("#new-comment").val();
+
+                    if (content === "") {
+                        toastr.error("You have not written a comment!");
+                        ev.preventDefault();
+                        return false;
+                    }
+
+                    requester.addCommentToRestaurant(id, content)
+                        .then((data) => {
+                            toastr.success("Your comment was added!");
+                            $("#comment-section").html(commentsFunc({ comments: data.comments }));
+                        });
+
+                    ev.preventDefault();
+                    return false;
+                });
             });
     }
 
@@ -46,3 +63,6 @@ var restaurantProfile = (function () {
 } ());
 
 export {restaurantProfile};
+
+
+
