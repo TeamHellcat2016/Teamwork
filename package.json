@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase-token-generator": "^2.0.0",
     "systemjs": "^0.19.38",
     "systemjs-plugin-babel": "0.0.15"
   }
