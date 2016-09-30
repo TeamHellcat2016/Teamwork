@@ -3,7 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Restaurants</title>
+    <title>Restaurants and Cafés</title>
+
+    <!--fb metas-->
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Restaurants And Cafés" />
+    <meta property="og:description" content="Find the best place to eat and drink" />
+    <meta property="og:image" content="http://storage.googleapis.com/7d098fa4b22147d79f17019067d81f02/3bb3a5e3-580a-47af-8d37-7a0779865757/Colorful%20Flowers%20Outside%20Italian%20Restaurant.jpg"
+    />
+    <!--fb metas-->
+
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.css">
     <link rel="stylesheet" href="./bower_components/toastr/toastr.css">
@@ -35,6 +45,8 @@
 
                 <form id="user-links" class="navbar-form navbar-right hidden">
                     <a id="user-profile-link" href="#/profile" class="nav-link btn btn-link"></a>
+                    <div class="fb-share-button btn" data-href="" data-layout="button" data-size="large">
+                    </div>
                     <button id="logout" class="btn btn-default">Logout</button>
                 </form>
             </nav>
@@ -57,6 +69,7 @@
     <script src="./bower_components/jquery-ui/jquery-ui.js"></script>
 
     <!--SystemJS-->
+    <script src="./js/helpers/facebook.js"></script>
     <script src="./node_modules/systemjs/dist/system.js"></script>
     <script src="./js/system-config.js"></script>
     <script>
