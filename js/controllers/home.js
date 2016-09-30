@@ -1,28 +1,19 @@
 "use strict";
 
-
 import {templates} from "templates";
-import {attachEvents} from "events";
 
-class Home {
-     constructor() {
-    }
-
-    all(context) {
+let home = (function(){
+    function all(context) {
        templates.get("home")
             .then((template) => {
                 context.$element().html(template());
             });
     }
 
-}
+    return {
+        all
+    };
+}());
 
-export {Home};
+export {home};
 
-// controllers.home = function getHome(context) {
-//     templates.get("home")
-//         .then((template) => {
-//             context.$element().html(template());
-//         })
-//         .then(logData());
-// };
