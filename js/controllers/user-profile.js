@@ -1,10 +1,10 @@
 import {templates} from "templates";
 import {requester} from "requester";
 
-var userProfile = (function () {
+let userProfile = (function () {
 
     function getProfile(context) {
-        var userInfo;
+        let userInfo;
 
         //TODO: fix promise structure
         requester.getUserInfo()
@@ -16,9 +16,9 @@ var userProfile = (function () {
                 context.$element().html(templateFunc(userInfo));
             })
             .then(() => {
-                var allRestaurants = [];
-                var length = userInfo.favourites.length;
-                var itemsProcessed = 0;
+                let allRestaurants = [];
+                let length = userInfo.favourites.length;
+                let itemsProcessed = 0;
                 return new Promise((resolve, reject) => {
                     if(userInfo.favourites.length===0){
                         resolve(allRestaurants);

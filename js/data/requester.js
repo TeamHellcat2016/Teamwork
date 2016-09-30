@@ -1,13 +1,13 @@
 import {jqueryRequester} from "jquery-requester";
 
-var requester = (function () {
+let requester = (function () {
     const CURRENT_USER_ID = "current-user-id";
     const AUTH_TOKEN = "auth-token";
     const CURRENT_USER_NAME = "username";
     const appId = "kid_rJWkfzw6";
     const appSecret = "9861c3e41b4a41e4976d17e5c48f8e26";
     const masterSecret = "039e3c57e4474187aa9c5b6d540c13e1";
-    var authorizationString = `${appId}:${appSecret}`;
+    let authorizationString = `${appId}:${appSecret}`;
     authorizationString = btoa(authorizationString);
 
 
@@ -76,10 +76,10 @@ var requester = (function () {
         const authtoken = localStorage.getItem(AUTH_TOKEN);
         const headers = { Authorization: `Kinvey ${authtoken}` };
         const url = userUrl + `/${userId}`;
-        var newFavourites;
+        let newFavourites;
         return getUserInfo()
             .then((user) => {
-                var favourites = user.favourites;
+                let favourites = user.favourites;
                 newFavourites = favourites;
                 if (newFavourites.indexOf(restaurantId) < 0) {
                     newFavourites.push(restaurantId);
@@ -88,7 +88,7 @@ var requester = (function () {
                 }
             })
             .then(() => {
-                var data = { favourites: newFavourites };
+                let data = { favourites: newFavourites };
                 return jqueryRequester.put(url, headers, data);
             });
     }
@@ -111,8 +111,8 @@ var requester = (function () {
         const headers = { Authorization: `Kinvey ${authtoken}` };
         const url = getRestaurantsUrl + `/${id}`;
         const username = localStorage.getItem(CURRENT_USER_NAME);
-        var dateNow = new Date();
-        var date = `${dateNow.getDate()}.${dateNow.getMonth()}.${dateNow.getFullYear()}`;
+        let dateNow = new Date();
+        let date = `${dateNow.getDate()}.${dateNow.getMonth()}.${dateNow.getFullYear()}`;
 
         return getRestaurantById(id)
             .then((restaurant) => {

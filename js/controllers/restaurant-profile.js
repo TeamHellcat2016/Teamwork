@@ -1,11 +1,11 @@
 import {templates} from "templates";
 import {requester} from "requester";
 
-var restaurantProfile = (function () {
+let restaurantProfile = (function () {
 
     function getProfile(context) {
         const id = this.params["id"];
-        var data;
+        let data;
 
         requester.getRestaurantById(id)
             .then((result) => {
@@ -37,7 +37,7 @@ var restaurantProfile = (function () {
                 });
 
                 $(".add-comment-btn").on("click", function (ev) {
-                    var content = $("#new-comment").val();
+                    let content = $("#new-comment").val();
 
                     if (content === "") {
                         toastr.error("You have not written a comment!");

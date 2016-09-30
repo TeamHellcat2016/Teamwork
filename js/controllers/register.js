@@ -2,7 +2,7 @@
 import {requester} from "requester";
 import {templates} from "templates";
 
-var registerController = (function () {
+let registerController = (function () {
     function getRegisterTemplate(context) {
 
         templates.get("register")

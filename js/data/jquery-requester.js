@@ -1,4 +1,4 @@
-var jqueryRequester = (function () {
+let jqueryRequester = (function () {
     function request(method, url, headers, data, contentType) {
         data = data || {};
         data = JSON.stringify(data);

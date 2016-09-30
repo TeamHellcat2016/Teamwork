@@ -4,8 +4,8 @@ import {requester} from "requester";
 let browse = (function () {
 
     function getBrowsing(context) {
-        var data;
-        var templateListFunc;
+        let data;
+        let templateListFunc;
         requester.getAllRestaurants()
             .then((result) => {
                 data = result;
@@ -18,26 +18,6 @@ let browse = (function () {
                     .then((listFunc) => {
                         templateListFunc = listFunc;
                         $("#restaurants-list").html(templateListFunc({ data }));
-
-                        // $(".add-to-favourites").on("click", function (ev) {
-                        //     const parent = $(ev.target).parents(".restaurant");
-                        //     const id = parent.attr("data-id");
-                        //     console.log(id);
-                        //     requester.addRestaurantToFavourites(id)
-                        //         .then(() => {
-                        //             toastr.success("Added to favourites!");
-                        //         })
-                        //         .catch((ex) => {
-                        //             if (ex.message.indexOf("is already added to favourites") >= 0) {
-                        //                 toastr.success("The place is already added to favourites.");
-                        //             } else {
-                        //                 toastr.error("An error occured and the place is not added to favourites.");
-                        //             }
-                        //         });
-
-                        //     ev.preventDefault();
-                        //     return false;
-                        // });
                     });
 
                 $("#browse-container").on("click", ".add-to-favourites", function (ev) {
@@ -80,16 +60,16 @@ let browse = (function () {
 
             requester.getAllRestaurants()
                 .then((restaurants) => {
-                    var sortedRestaurants = [];
+                    let sortedRestaurants = [];
                     restaurants.forEach((restaurant) => {
-                        var answersConditions = true;
-                        for (var property in options) {
+                        let answersConditions = true;
+                        for (let property in options) {
                             if (options[property] === "") {
                                 continue;
                             }
 
                             if (Array.isArray(restaurant[property])) {
-                                var hasMatch = restaurant[property].some((element) => element.toLowerCase() === options[property]);
+                                let hasMatch = restaurant[property].some((element) => element.toLowerCase() === options[property]);
                                 if (hasMatch) {
                                     continue;
                                 } else {
@@ -129,7 +109,7 @@ let browse = (function () {
 
 function addAutocomplete(property, field, data, isInArray) {
     isInArray = isInArray || false;
-    var options = [];
+    let options = [];
     if (isInArray) {
         data.map(r => r[property])
             .forEach((array) => {
