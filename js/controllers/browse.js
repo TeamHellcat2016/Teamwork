@@ -20,8 +20,8 @@ let browse = (function () {
                         $("#restaurants-list").html(templateListFunc({ data }));
                     })
                     .then(()=>{
-                        var description;
-                        var parent;
+                        let description;
+                        let parent;
                         $('.btn-info').on('click', function (ev) {
                             parent = $(ev.target).parents('.restaurant');
 
@@ -40,6 +40,25 @@ let browse = (function () {
                             }
 
 
+                        });
+                        let comment;
+                        let parentComment;
+                        $('.btn-comments').on('click', function (ev) {
+                            parentComment = $(ev.target).parents('.restaurant');
+
+                            if(parentComment.children().children('.comments').children().length == 0){
+                                var id = parentComment.attr('data-id');
+                                requester.getRestaurantById(id)
+                                    .then((res)=>{
+                                        comment = res.comments;
+                                        return templates.get('comment');
+                                    })
+                                    .then((templateFunc)=>{
+                                        parentComment.children().children('.comments').append(templateFunc(comment));
+                                    })
+                            } else {
+                                parentComment.children().children('.comments').children().remove('.restaurant-comment');
+                            }
                         })
 
                     });
