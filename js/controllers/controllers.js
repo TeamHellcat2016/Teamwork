@@ -5,6 +5,7 @@ import {browse} from "browse";
 import {registerController} from "register-controller";
 import {restaurantProfile} from "restaurant-profile";
 import {userProfile} from "user-profile";
+import {map} from "map";
 
 let controllers = (function () {
     return {
@@ -12,7 +13,8 @@ let controllers = (function () {
         browse: browse,
         register: registerController,
         restaurantProfile: restaurantProfile,
-        userProfile: userProfile
+        userProfile: userProfile,
+        map: map
     };
 } ());
 
