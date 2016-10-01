@@ -18,49 +18,6 @@ let browse = (function () {
                     .then((listFunc) => {
                         templateListFunc = listFunc;
                         $("#restaurants-list").html(templateListFunc({ data }));
-                    })
-                    .then(()=>{
-                        let description;
-                        let parent;
-                        $('.btn-info').on('click', function (ev) {
-                            parent = $(ev.target).parents('.restaurant');
-
-                            if(parent.children().children('.desc').children().length == 0){
-                                let id = parent.attr("data-id");
-                                requester.getRestaurantById(id)
-                                    .then((res)=>{
-                                        description = res.description;
-                                        return templates.get('description');
-                                    })
-                                    .then((templateFunc)=>{
-                                        parent.children().children('.desc').append(templateFunc(description));
-                                    })
-                            } else {
-                                parent.children().children('.desc').children().remove('#restaurant-description');
-                            }
-
-
-                        });
-                        let comment;
-                        let parentComment;
-                        $('.btn-comments').on('click', function (ev) {
-                            parentComment = $(ev.target).parents('.restaurant');
-
-                            if(parentComment.children().children('.comments').children().length == 0){
-                                var id = parentComment.attr('data-id');
-                                requester.getRestaurantById(id)
-                                    .then((res)=>{
-                                        comment = res.comments;
-                                        return templates.get('comment');
-                                    })
-                                    .then((templateFunc)=>{
-                                        parentComment.children().children('.comments').append(templateFunc(comment));
-                                    })
-                            } else {
-                                parentComment.children().children('.comments').children().remove('.restaurant-comment');
-                            }
-                        })
-
                     });
 
                 $("#browse-container").on("click", ".add-to-favourites", function (ev) {
@@ -79,6 +36,50 @@ let browse = (function () {
                             }
                         });
 
+                    ev.preventDefault();
+                    return false;
+                });
+
+                let description;
+                let parent;
+                $("#browse-container").on("click", ".btn-info", function (ev) {
+                        parent = $(ev.target).parents('.restaurant');
+
+                        if(parent.children().children('.desc').children().length == 0){
+                            let id = parent.attr("data-id");
+                            requester.getRestaurantById(id)
+                                .then((res)=>{
+                                    description = res.description;
+                                    return templates.get('description');
+                                })
+                                .then((templateFunc)=>{
+                                    parent.children().children('.desc').append(templateFunc(description));
+                                })
+                        } else {
+                            parent.children().children('.desc').children().remove('#restaurant-description');
+                        }
+                    ev.preventDefault();
+                    return false;
+                });
+
+                let comment;
+                let parentComment;
+                $("#browse-container").on("click", ".btn-comments", function (ev){
+                    parentComment = $(ev.target).parents('.restaurant');
+
+                    if(parentComment.children().children('.comments').children().length == 0){
+                        var id = parentComment.attr('data-id');
+                        requester.getRestaurantById(id)
+                            .then((res)=>{
+                                comment = res.comments;
+                                return templates.get('comment');
+                            })
+                            .then((templateFunc)=>{
+                                parentComment.children().children('.comments').append(templateFunc(comment));
+                            })
+                    } else {
+                        parentComment.children().children('.comments').children().remove('.restaurant-comment');
+                    }
                     ev.preventDefault();
                     return false;
                 });

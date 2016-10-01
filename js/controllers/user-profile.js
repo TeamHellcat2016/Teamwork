@@ -43,7 +43,10 @@ let userProfile = (function () {
                         $("#restaurants-list").html(listTemplateFunc({ data: allRestaurants }));
 
                         $(".add-to-favourites").addClass("hidden");
-                    });
+                    })
+                    .then(()=>{
+
+                    })
             });
     }
 
