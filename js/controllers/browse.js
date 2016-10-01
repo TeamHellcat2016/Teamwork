@@ -18,6 +18,30 @@ let browse = (function () {
                     .then((listFunc) => {
                         templateListFunc = listFunc;
                         $("#restaurants-list").html(templateListFunc({ data }));
+                    })
+                    .then(()=>{
+                        var description;
+                        var parent;
+                        $('.btn-info').on('click', function (ev) {
+                            parent = $(ev.target).parents('.restaurant');
+
+                            if(parent.children().children('.desc').children().length == 0){
+                                let id = parent.attr("data-id");
+                                requester.getRestaurantById(id)
+                                    .then((res)=>{
+                                        description = res.description;
+                                        return templates.get('description');
+                                    })
+                                    .then((templateFunc)=>{
+                                        parent.children().children('.desc').append(templateFunc(description));
+                                    })
+                            } else {
+                                parent.children().children('.desc').children().remove('#restaurant-description');
+                            }
+
+
+                        })
+
                     });
 
                 $("#browse-container").on("click", ".add-to-favourites", function (ev) {
@@ -96,6 +120,8 @@ let browse = (function () {
             ev.preventDefault();
             return false;
         });
+
+
     })
             .catch((e) => {
         console.log(e);
