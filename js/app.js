@@ -17,6 +17,8 @@ import {attachEvents} from "events";
         this.get("#/restaurant/:id", controllers.restaurantProfile.all);
 
         this.get("#/profile", controllers.userProfile.all);
+        
+        this.get("#/map", controllers.map.all);
     });
 
 
