@@ -14,9 +14,19 @@ let registerController = (function () {
                     let password = $("#password-register-1").val();
                     let repeatedPassword = $("#password-register-2").val();
 
-                    if(password === ""){
+                    if (username === "") {
+                        $("#invalid-username-message").removeClass("hidden");
+                        ev.preventDefault();
+                        return false;
+                    } else {
+                        $("#invalid-username-message").addClass("hidden");
+                    }
+
+                    if (password === "") {
                         $("#invalid-empty-password").removeClass("hidden");
-                    }else{
+                        ev.preventDefault();
+                        return false;
+                    } else {
                         $("#invalid-empty-password").addClass("hidden");
                     }
 
