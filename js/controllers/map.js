@@ -47,7 +47,9 @@ let map = (function () {
                             infowindow.setContent(place.name);
                             infowindow.open(map, this);
                             });
-                        }               
+                        }
+
+                        initMap()
             });
 
     }

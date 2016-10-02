@@ -97,3 +97,7 @@ body {
 .add-comment-form{
     margin-top: 2em;
 }
+
+#map{
+    height: 600px;
+}
