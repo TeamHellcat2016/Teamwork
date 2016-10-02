@@ -1,3 +1,10 @@
+body {
+    background-color: #ffffcc;
+}
+
+#map {
+     height: 200px;
+}
 .hidden {
     display: none;
 }
