@@ -6,7 +6,6 @@ let requester = (function () {
     const CURRENT_USER_NAME = "username";
     const appId = "kid_rJWkfzw6";
     const appSecret = "9861c3e41b4a41e4976d17e5c48f8e26";
-    const masterSecret = "039e3c57e4474187aa9c5b6d540c13e1";
     let authorizationString = `${appId}:${appSecret}`;
     authorizationString = btoa(authorizationString);
 
@@ -36,8 +35,7 @@ let requester = (function () {
             });
     }
 
-    function logoutUserRequest(username, password) {
-        const data = { username, password };
+    function logoutUserRequest() {
         const authtoken = localStorage.getItem(AUTH_TOKEN);
         const headers = { Authorization: `Kinvey ${authtoken}` };
         return jqueryRequester.post(logoutUserUrl, headers)
@@ -46,12 +44,6 @@ let requester = (function () {
                 localStorage.removeItem(CURRENT_USER_NAME);
                 localStorage.removeItem(AUTH_TOKEN);
             });
-        // return Promise.resolve()
-        //     .then(() => {
-        //         localStorage.removeItem(CURRENT_USER_ID);
-        //         localStorage.removeItem(CURRENT_USER_NAME);
-        //         localStorage.removeItem(AUTH_TOKEN);
-        //     });
     }
 
     function isLoggedIn() {
@@ -113,11 +105,11 @@ let requester = (function () {
         const url = getRestaurantsUrl + `/${id}`;
         const username = localStorage.getItem(CURRENT_USER_NAME);
         let dateNow = new Date();
-        let date = `${dateNow.getDate()}.${dateNow.getMonth()}.${dateNow.getFullYear()}`;
+        let date = `${dateNow.getDate()}.${dateNow.getMonth() + 1}.${dateNow.getFullYear()}`;
 
         return getRestaurantById(id)
             .then((restaurant) => {
-                restaurant.comments.push({content, date, username});
+                restaurant.comments.push({ content, date, username });
                 return restaurant;
             })
             .then((restaurant) => {

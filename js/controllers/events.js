@@ -1,11 +1,6 @@
 import {requester} from "requester";
 
 let attachEvents = function () {
-    // $("#register").on("click", function(){
-    //     const username = $("#username").val();
-    //     const password = $("#password").val();
-    //     requester.registerUser(username, password);
-    // });
 
     requester.isLoggedIn()
         .then((username) => {
