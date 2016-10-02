@@ -29,8 +29,7 @@
             <nav class="navbar navbar-default">
                 <ul class="nav navbar-nav">
                     <li><a class="active" href="#/home">Home <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#/browse">Browse</a></li>
-                    <li><a href="#/map" id= "map">Map</a></li>                
+                    <li><a href="#/browse">Browse</a></li>                             
                 </ul>
                 <form id="login-form" class="navbar-form navbar-right">
                     <div class="form-group">
@@ -54,13 +53,16 @@
         </div>
     </header>
     <main>
+        <div id="map">
+        </div>
         <div id="content" class="container">
-
         </div>
     </main>
 
     <!--Scripts-->
-
+    <script src="./js/helpers/map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH5xBUNSTbbo7_UDzfUabDHduXHFArFnw&callback=initMap&libraries=places,visualization" async defer></script>
+    
     <!--Libs-->
     <script src="./bower_components/jquery/dist/jquery.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -68,7 +70,7 @@
     <script src="./bower_components/handlebars/handlebars.js"></script>
     <script src="./bower_components/toastr/toastr.js"></script>
     <script src="./bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH5xBUNSTbbo7_UDzfUabDHduXHFArFnw&callback=initMap&libraries=places,visualization" async defer></script>
+    
     <!--SystemJS-->
     <script src="./js/helpers/facebook.js"></script>
     <script src="./node_modules/systemjs/dist/system.js"></script>
@@ -76,7 +78,6 @@
     <script>
         System.import("app");
     </script>
-
-
+    
 </body>
 <html>
