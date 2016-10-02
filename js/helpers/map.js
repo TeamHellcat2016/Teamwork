@@ -1,5 +1,3 @@
-    var map;
-
     function initMap() {
         var pyrmont = {lat: 42.6492994, lng: 23.3723664};
         map = new google.maps.Map(document.getElementById('map'), {
@@ -15,10 +13,3 @@
         }, callback);
     }
 
-    function callback(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                createMarker(results[i]);
-            }
-        }
-    }
